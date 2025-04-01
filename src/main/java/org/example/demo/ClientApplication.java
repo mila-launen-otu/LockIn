@@ -33,6 +33,8 @@ import javafx.scene.control.ScrollPane;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 
 public class ClientApplication extends Application {
     private static String username = "";
@@ -64,8 +66,17 @@ public class ClientApplication extends Application {
         out = new PrintWriter(socket.getOutputStream(), true);
 
         out.println(username);
+        TabPane tabPane = new TabPane();
 
         GridPane gridPane = new GridPane();
+
+        // Create tabs
+        Tab workspaceTab = new Tab("Workspace", gridPane);
+        Tab whiteboardTab = new Tab("Whiteboard", new Label("Whiteboard environment"));
+
+        tabPane.getTabs().add(workspaceTab);
+        tabPane.getTabs().add(whiteboardTab);
+
 
         // whiteboard pane
         GridPane whiteboardPane = new GridPane();
@@ -83,7 +94,8 @@ public class ClientApplication extends Application {
         chatLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
         textArea = new TextArea();
         textArea.setEditable(false);
-        textArea.setStyle("-fx-highlight-text-fill: lightblue; -fx-border-width: 2");
+        textArea.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
+        textArea.setStyle("fx-font-weight: bold;-fx-text-fill: #4aa146;");
 
         ScrollPane scrollPane = new ScrollPane();
         textArea.setPrefSize(width/2-20, height/2-15);
@@ -127,8 +139,23 @@ public class ClientApplication extends Application {
 
         Label PracticeLabel = new Label("Practice Problems");
         PracticeLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+        Button newQuestion = new Button("Add New Question");
+        newQuestion.setPrefSize(width/2-20, 35);
+
+        newQuestion.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        newQuestion.setStyle("fx-font-weight: bold; -fx-background-color: #1c1c1c; -fx-text-fill: #4aa146;");
+
+        newQuestion.setOnAction(event ->{
+            //TO DO: add Question to Json file
+            addPractice.enterPracticeQ();
+
+        });
+
         practicePane.add(PracticeLabel,0,1);
         practicePane.add(PracticeScroll,0,2);
+        practicePane.add(newQuestion,0,3);
+
+
 
 
         // Add panes to the gridPane
@@ -140,7 +167,12 @@ public class ClientApplication extends Application {
         gridPane.setHgap(10);
         gridPane.setVgap(10);
 
-        Scene scene = new Scene(gridPane, width, height);
+
+        workspaceTab.setContent(gridPane);
+
+        VBox root = new VBox(tabPane);
+        Scene scene = new Scene(root, width, height);
+
         primaryStage.setTitle(username +"'s Workspace");
         primaryStage.setScene(scene);
         primaryStage.show();
