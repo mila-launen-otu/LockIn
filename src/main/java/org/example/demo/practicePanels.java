@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -18,21 +19,26 @@ import org.w3c.dom.NodeList;
 import javax.swing.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 class question{
     String id;
     int level;
     String title;
     String desc;
     String answer;
+
+    public question(String id, int level, String title, String desc, String answer) {
+    }
 }
 
 public class practicePanels {
     public static ArrayList<PracticeQuestion> listOfQuestions;
+    public static String mainFilePath = "src/main/java/questionData.json";
 
     public static class PracticeQuestion {
         private double w;
@@ -87,7 +93,6 @@ public class practicePanels {
             tryButton.setPrefSize(100, h-10);
 
             changeButton();
-
             hBox.getChildren().add(vBox);
             hBox.getChildren().add(tryButton);
             gridQuestion.getChildren().add(hBox);
@@ -145,7 +150,7 @@ public class practicePanels {
         ArrayList<PracticeQuestion> quest_Loader_Inital = new ArrayList<>();
         Gson gson = new Gson();
 
-        try (FileReader reader = new FileReader("src/main/java/questionData.json")) {
+        try (FileReader reader = new FileReader(mainFilePath)) {
             // Parse JSON into a JsonObject
             JsonObject jsonObject = gson.fromJson(reader, JsonObject.class);
 
@@ -175,9 +180,32 @@ public class practicePanels {
         listOfQuestions = quest_Loader_Inital;
         return quest_Loader_Inital;
     }
+    public static void addQuestionToArray(String id, int level, String title, String desc, String answer){
+        PracticeQuestion newQuestion = new PracticeQuestion(id, title, desc, answer, level);
+        listOfQuestions.add(newQuestion);
+    }
+    public static void addQuestionToJson(String id, int Level, String title, String desc, String answer) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String filepath = mainFilePath;
+        try{
+            BufferedReader reader = new BufferedReader(new FileReader(filepath));
+            Type type = new TypeToken<Map<String, List<question>>>() {}.getType();
+            Map<String, List<question>> data = gson.fromJson(reader, type);
+            question newQuestion = new question(
+                 id, Level, title, desc, answer    
+            );
+            data.get("questions").add(newQuestion);
+            FileWriter writer = new FileWriter(filepath);
+            gson.toJson(data, writer);
+            writer.close();
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
 
     public static void modifyJsonAns(String questionId, String ans) {
-        String filePath = "src/main/java/questionData.json"; // Path to your JSON file
+        String filePath = mainFilePath; // Path to your JSON file
         Gson gson = new GsonBuilder().setPrettyPrinting().create(); // Create Gson instance
 
         try {
