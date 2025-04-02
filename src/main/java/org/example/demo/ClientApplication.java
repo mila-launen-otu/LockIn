@@ -20,7 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-
+import static javafx.application.Platform.exit;
 
 public class ClientApplication extends Application {
     private static String username = "";
@@ -40,12 +40,14 @@ public class ClientApplication extends Application {
     public static double getHeight(){
         return height;
     }
-
     @Override
     public void start(Stage primaryStage) throws IOException {
         //start with asking for username
 
-        username = JOptionPane.showInputDialog("Enter Username");
+        LoginSystem newLogin =  new LoginSystem();
+        if(username.isEmpty()){
+            exit();
+        }
 
         socket = new Socket("localhost", 5001);
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -129,6 +131,9 @@ public class ClientApplication extends Application {
         newQuestion.setOnAction(event ->{
             //TO DO: add Question to Json file
             addPractice.enterPracticeQ();
+            practicePanels.PracticeQuestion pq = practicePanels.listOfQuestions.getLast();
+            questList.getChildren().add(pq.UI);
+            practicePanels.addQuestionToJson(pq);
 
         });
 
@@ -204,6 +209,9 @@ public class ClientApplication extends Application {
         if(!message.isEmpty()){
             out.println("ANS-" + username + " answered " + id + "!" );
         }
+    }
+    public static void setUsername(String username){
+        ClientApplication.username = username;
     }
 
     public static void main(String[] args) {
