@@ -7,6 +7,7 @@ import java.util.concurrent.*;
 
 public class WhiteboardServer {
     private static final int PORT = 5000;
+    private static final String SERVER_IP = "0.0.0.0";
     private final List<ClientHandler> clients = new CopyOnWriteArrayList<>();
     private File csvFile;
 
@@ -31,8 +32,8 @@ public class WhiteboardServer {
     public void start() {
 
         // Start server
-        try (ServerSocket serverSocket = new ServerSocket(PORT)) {
-            System.out.println("Whiteboard Server started on port " + PORT);
+        try (ServerSocket serverSocket = new ServerSocket(PORT, 50, InetAddress.getByName(SERVER_IP))) {
+            System.out.println("Whiteboard Server started on " + SERVER_IP + ":" + PORT);
 
             while (true) {
                 Socket clientSocket = serverSocket.accept();

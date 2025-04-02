@@ -16,7 +16,7 @@ import java.io.*;
 import java.net.*;
 
 public class WhiteboardPanel {
-    private static final String SERVER_ADDRESS = "localhost";
+    private static final String SERVER_ADDRESS = "26.202.66.197"; // e.g., "192.168.1.100"
     private static final int SERVER_PORT = 5000;
 
     private Canvas canvas;
@@ -83,7 +83,7 @@ public class WhiteboardPanel {
         redButton.setOnAction(e -> setStrokeProperties(Color.RED, 3));
         greenButton.setOnAction(e -> setStrokeProperties(Color.GREEN, 3));
         blueButton.setOnAction(e -> setStrokeProperties(Color.BLUE, 3));
-        eraserButton.setOnAction(e -> setStrokeProperties(Color.WHITE, 25));
+        eraserButton.setOnAction(e -> setStrokeProperties(Color.WHITE, 30));
         clearButton.setOnAction(e -> {
             gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
             gc.setFill(Color.WHITE);
