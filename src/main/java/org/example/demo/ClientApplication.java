@@ -47,7 +47,7 @@ public class ClientApplication extends Application {
 
         username = JOptionPane.showInputDialog("Enter Username");
 
-        socket = new Socket("localhost", 5001);
+        socket = new Socket("26.202.66.197", 5001);
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         out = new PrintWriter(socket.getOutputStream(), true);
 
