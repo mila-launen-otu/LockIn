@@ -89,6 +89,25 @@ public class WhiteboardServer {
         System.out.println("Client disconnected");
     }
 
+    public void clearCanvas(ClientHandler sender) {
+        // Reset the CSV file with just the header
+        try {
+            FileWriter fw = new FileWriter(csvFile);
+            fw.write("x,y,dragType\n");
+            fw.close();
+            System.out.println("Canvas cleared.");
+        } catch (IOException e) {
+            System.err.println("Error clearing CSV file: " + e.getMessage());
+        }
+
+        // Notify all clients to clear their canvases
+        for (ClientHandler client : clients) {
+            if (client != sender) {
+                client.sendCoordinates("CLEAR");
+            }
+        }
+    }
+
     // Inner class to handle client connections
     private static class ClientHandler implements Runnable {
         private final Socket clientSocket;
@@ -113,8 +132,12 @@ public class WhiteboardServer {
             try {
                 String inputLine;
                 while ((inputLine = in.readLine()) != null) {
-                    // Process received coordinates and broadcast
-                    server.broadcastUpdate(inputLine, this);
+                    if("CLEAR".equals(inputLine)){
+                        server.clearCanvas(this);
+                    }else{
+                        // Process received coordinates and broadcast
+                        server.broadcastUpdate(inputLine, this);
+                    }
                 }
             } catch (IOException e) {
                 System.err.println("Error handling client: " + e.getMessage());
