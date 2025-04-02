@@ -2,40 +2,24 @@ package org.example.demo;
 
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.scene.control.TextField;
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.WindowEvent;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
-import javafx.scene.layout.StackPane;
 import javafx.scene.control.ScrollPane;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-
 import static javafx.application.Platform.exit;
 
 public class ClientApplication extends Application {
@@ -76,17 +60,12 @@ public class ClientApplication extends Application {
 
         // Create tabs
         Tab workspaceTab = new Tab("Workspace", gridPane);
-        Tab whiteboardTab = new Tab("Whiteboard", new Label("Whiteboard environment"));
+        Tab whiteboardTab = new Tab("Whiteboard");
 
-        tabPane.getTabs().add(workspaceTab);
-        tabPane.getTabs().add(whiteboardTab);
+        tabPane.getTabs().addAll(workspaceTab, whiteboardTab);
 
-
-        // whiteboard pane
-        GridPane whiteboardPane = new GridPane();
-        whiteboardPane.setStyle("-fx-border-color: lightblue; -fx-border-width: 2");
-        whiteboardPane.setPrefSize(width/2+20, height);
-        GridPane.setConstraints(whiteboardPane, 0, 0, 1, 2); // Spans 2 rows
+        WhiteboardPanel whiteboardPanel = new WhiteboardPanel();
+        whiteboardTab.setContent(whiteboardPanel.getWhiteboardPane());
 
         // chat pane
         GridPane chatPane = new GridPane();
@@ -162,31 +141,31 @@ public class ClientApplication extends Application {
         practicePane.add(PracticeScroll,0,2);
         practicePane.add(newQuestion,0,3);
 
-
-
-
         // Add panes to the gridPane
-        gridPane.add(whiteboardPane, 0, 0, 1, 2);  // Left pane spans 2 rows
-        gridPane.add(chatPane, 1, 0);   // Top-right pane
-        gridPane.add(practicePane, 1, 1); // Bottom-right pane
-
-        // Set column and row constraints for resizing
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
-
+        gridPane.add(chatPane, 1, 0);
+        gridPane.add(practicePane, 1, 1);
 
         workspaceTab.setContent(gridPane);
 
         VBox root = new VBox(tabPane);
         Scene scene = new Scene(root, width, height);
 
-        primaryStage.setTitle(username +"'s Workspace");
+        primaryStage.setTitle(username + "'s Workspace");
         primaryStage.setScene(scene);
         primaryStage.show();
 
         //window closing listener:
         primaryStage.setOnCloseRequest(event -> {
             try{
+                File csvFile = new File("whiteboard_data.csv");
+                if(csvFile.exists()){
+                    if(csvFile.delete()){
+                        System.out.println("CSV file deleted.");
+                    } else{
+                        System.out.println("Cannot delete CSV file.");
+                    }
+                }
+
                 if(socket != null && !socket.isClosed()){
                     socket.close();
                 }
@@ -198,31 +177,22 @@ public class ClientApplication extends Application {
         textField.setOnAction(event -> sendMessage());
         sendBtn.setOnAction(event -> sendMessage());
 
-        new Thread(()->{
-            try{
+        new Thread(() -> {
+            try {
                 String message;
-                while((message = in.readLine()) != null){
-                    if(message.contains("ANS-")){
-                        String msg = message.substring(4);
-                        textArea.appendText(username + " solved "+msg+"\n");
-
-                    }
-                    else{
-                        textArea.appendText(message + "\n");
-                    }
+                while ((message = in.readLine()) != null) {
+                    final String finalMessage = message;
+                    Platform.runLater(() -> {
+                        if (finalMessage.contains("ANS-")) {
+                            String msg = finalMessage.substring(4);
+                            textArea.appendText(username + " solved " + msg + "\n");
+                        } else {
+                            textArea.appendText(finalMessage + "\n");
+                        }
+                    });
                 }
-            }catch(IOException e){
-                if(!socket.isClosed()){
-                    e.printStackTrace();
-                }
-            } finally {
-                try{
-                    if(socket != null && !socket.isClosed()){
-                        socket.close();
-                    }
-                }catch(IOException ex){
-                    ex.printStackTrace();
-                }
+            } catch (IOException e) {
+                // existing error handling code
             }
         }).start();
     }
@@ -234,6 +204,7 @@ public class ClientApplication extends Application {
             textField.clear();
         }
     }
+
     public static void sendAnswerMessage(String message, String id){
         if(!message.isEmpty()){
             out.println("ANS-" + username + " answered " + id + "!" );
