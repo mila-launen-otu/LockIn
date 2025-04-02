@@ -70,6 +70,9 @@ public class ChatServer {
                     if(message.contains("ANS-")){
                         System.out.println(message);
                     }
+                    else if(message.contains("NEWQ")){
+                        System.out.println(message);
+                    }
                     else{
                         System.out.println(username + ": " + message);
                     }

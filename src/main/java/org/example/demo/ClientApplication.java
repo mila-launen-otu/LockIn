@@ -79,6 +79,7 @@ public class ClientApplication extends Application {
         textArea.setEditable(false);
         textArea.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
         textArea.setStyle("fx-font-weight: bold;-fx-text-fill: #4aa146;");
+        textArea.setWrapText(true);
 
         ScrollPane scrollPane = new ScrollPane();
         textArea.setPrefSize(width/2-20, height/2-15);
@@ -131,9 +132,6 @@ public class ClientApplication extends Application {
         newQuestion.setOnAction(event ->{
             //TO DO: add Question to Json file
             addPractice.enterPracticeQ();
-            practicePanels.PracticeQuestion pq = practicePanels.listOfQuestions.getLast();
-            questList.getChildren().add(pq.UI);
-            practicePanels.addQuestionToJson(pq);
 
         });
 
@@ -186,7 +184,20 @@ public class ClientApplication extends Application {
                         if (finalMessage.contains("ANS-")) {
                             String msg = finalMessage.substring(4);
                             textArea.appendText(username + " solved " + msg + "\n");
-                        } else {
+                        }
+                        else if(finalMessage.contains("NEWQ")) {
+                            String[] add_new_question = finalMessage.split("_");
+                            //String id, String title, String desc, String answer, int level
+                            practicePanels.PracticeQuestion new_question = new practicePanels.PracticeQuestion(add_new_question[1], add_new_question[2],add_new_question[3],add_new_question[4],Integer.parseInt(add_new_question[5]));
+                            practicePanels.addQuestionToJson(new_question);
+                            practicePanels.listOfQuestions.add(new_question);
+
+                            practicePanels.PracticeQuestion pq = practicePanels.listOfQuestions.getLast();
+                            questList.getChildren().add(pq.UI);
+
+
+                        }
+                        else {
                             textArea.appendText(finalMessage + "\n");
                         }
                     });
@@ -212,6 +223,11 @@ public class ClientApplication extends Application {
     }
     public static void setUsername(String username){
         ClientApplication.username = username;
+    }
+    //String id, int level, String title, String desc, String answer
+    public static void sendQuestion(String id, int level, String title, String desc, String answer){
+        out.println("NEWQ_"+id+"_"+title+"_"+desc+"_"+answer+"_"+level);
+        out.println("New Question: " + title + ", By: " + username);
     }
 
     public static void main(String[] args) {
