@@ -184,6 +184,7 @@ public class practicePanels {
         PracticeQuestion newQuestion = new PracticeQuestion(id, title, desc, answer, level);
         listOfQuestions.add(newQuestion);
     }
+
     public static void addQuestionToJson(String id, int Level, String title, String desc, String answer) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String filepath = mainFilePath;
