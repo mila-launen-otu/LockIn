@@ -18,4 +18,4 @@
 - add a pomodoro timer (maybe)
 - maybe when pomodoro timer is started, informs other users
 - lowk adding sound effects would be cool!!
-- add a to-do list
+- add a to-do list (where the whiteboard was supposed to go)
