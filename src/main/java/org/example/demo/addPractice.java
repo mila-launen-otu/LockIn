@@ -32,7 +32,7 @@ public class addPractice {
         TextField IdField = new TextField();
         TextField LevelField = new TextField();
         TextField TitleField = new TextField();
-        TextField DescField = new TextField();
+        TextArea DescArea = new TextArea();
         TextField AnswerField = new TextField();
 
         // Add components to the grid
@@ -63,7 +63,7 @@ public class addPractice {
         Label descLabel = new Label("Description:");
         descLabel.setFont(Font.font("Tahoma", 15));
         grid.add(descLabel, 0, 5);
-        grid.add(DescField, 1, 5);
+        grid.add(DescArea, 1, 5);
 
         Label ansLabel = new Label("Answer:");
         ansLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
@@ -79,8 +79,9 @@ public class addPractice {
         grid.add(infoLabel, 1, 7);
         grid.add(AnswerField, 1, 6);
 
-        DescField.setPrefWidth(300);
-        DescField.setPrefHeight(200);
+        DescArea.setPrefWidth(300);
+        DescArea.setPrefHeight(200);
+        DescArea.setWrapText(true);
         // Add the grid to the dialog
         dialog.getDialogPane().setContent(grid);
 
@@ -92,12 +93,12 @@ public class addPractice {
         if (result.isPresent() && result.get() == ButtonType.OK) {
             String id = IdField.getText();
             String title = TitleField.getText();
-            String desc = DescField.getText();
+            String desc = DescArea.getText();
             String ans = AnswerField.getText();
             String lvl = LevelField.getText();
             System.out.println(id + " " + title + " " + desc + " " + ans + " " + lvl);
-
-            practicePanels.addQuestionToArray(id, lvlValid(lvl), title, desc, ans);
+            //String id, int level, String title, String desc, String answer
+            ClientApplication.sendQuestion(id, lvlValid(lvl), title, desc, ans);
 
         } else {
             System.out.println("User canceled input.");

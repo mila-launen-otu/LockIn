@@ -29,32 +29,11 @@
       "answer": "Lotion"
     },
     {
-      "id": "5",
-      "level": 5,
-      "title": "Math",
-      "desc": "what is 7x7?",
-      "answer": "49"
-    },
-    {
-      "id": "1",
+      "id": "34.a)",
       "level": 2,
-      "title": "",
-      "desc": "",
-      "answer": "yay"
-    },
-    {
-      "id": "3",
-      "level": 4,
-      "title": "Sofi\u0027s question",
-      "desc": "Sofi\u0027s question",
-      "answer": "yellow"
-    },
-    {
-      "id": "",
-      "level": 1,
-      "title": "",
-      "desc": "",
-      "answer": ""
+      "title": "Simple percentage problem",
+      "desc": "Simple percentage problem",
+      "answer": "25%"
     }
   ]
 }
