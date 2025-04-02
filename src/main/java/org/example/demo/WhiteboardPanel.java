@@ -88,6 +88,10 @@ public class WhiteboardPanel {
             gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
             gc.setFill(Color.WHITE);
             gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+
+            if(isConnected){
+                out.println("CLEAR");
+            }
         });
 
 
@@ -166,6 +170,13 @@ public class WhiteboardPanel {
     }
 
     private void processCoordinates(String data) {
+        if("CLEAR".equals(data)){
+            gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+            gc.setFill(Color.WHITE);
+            gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+            return;
+        }
+
         String[] parts = data.split(",");
         if (parts.length >= 3) {
             try {
