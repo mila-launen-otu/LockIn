@@ -19,3 +19,5 @@
 - maybe when pomodoro timer is started, informs other users
 - lowk adding sound effects would be cool!!
 - add a to-do list (where the whiteboard was supposed to go)
+
+and that's I think it. Use this Read me to also try updating your progress
