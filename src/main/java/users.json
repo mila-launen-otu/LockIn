@@ -1,0 +1,28 @@
+{
+  "users": [
+    {
+      "username": "mila",
+      "password": "sybau"
+    },
+    {
+      "username": "bill",
+      "password": "password"
+    },
+    {
+      "username": "mila-launen",
+      "password": "1234"
+    },
+    {
+      "username": "petra",
+      "password": "2005"
+    },
+    {
+      "username": "maritza",
+      "password": "password2005"
+    },
+    {
+      "username": "milk",
+      "password": "tea"
+    }
+  ]
+}

@@ -16,14 +16,14 @@ import java.util.Optional;
 
 
 public class addPractice {
-    public static void  enterPracticeQ(){
+    public static void  enterPracticeQ() {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle("Practice Question Details");
         dialog.setHeaderText("Please enter your Question:");
 
         // Create the GridPane layout
         GridPane grid = new GridPane();
-        grid.setPrefSize(500,400);
+        grid.setPrefSize(500, 400);
         grid.setPadding(new Insets(10));
         grid.setHgap(10);
         grid.setVgap(10);
@@ -36,24 +36,34 @@ public class addPractice {
         TextField AnswerField = new TextField();
 
         // Add components to the grid
+        Label Insert = new Label("Your Question");
+        Insert.setFont(Font.font("Tahoma", FontWeight.BOLD, 20));
+        Insert.setStyle("-fx-background-color: #4aa146; -fx-highlight-text-fill: white ");
+        grid.add(Insert, 0, 0);
+
         Label idLabel = new Label("ID:");
         idLabel.setFont(Font.font("Tahoma", 15));
-        grid.add(idLabel, 0, 0);
-        grid.add(IdField, 1, 0);
+        grid.add(idLabel, 0, 1);
+        grid.add(IdField, 1, 1);
+
+        Label TitleLabel = new Label("Title:");
+        TitleLabel.setFont(Font.font("Tahoma", 15));
+        grid.add(TitleLabel, 0, 2);
+        grid.add(TitleField, 1, 2);
 
         Label lvlLabel = new Label("Level (1-5):");
         Label infoLvl = new Label("invalid levels will be labeled at 1");
         lvlLabel.setFont(Font.font("Tahoma", 15));
         infoLvl.setFont(Font.font("Tahoma", 12));
 
-        grid.add(lvlLabel, 0, 1);
-        grid.add(LevelField, 1, 1);
-        grid.add(infoLvl, 1, 2);
+        grid.add(lvlLabel, 0, 3);
+        grid.add(LevelField, 1, 3);
+        grid.add(infoLvl, 1, 4);
 
         Label descLabel = new Label("Description:");
         descLabel.setFont(Font.font("Tahoma", 15));
-        grid.add(descLabel, 0, 3);
-        grid.add(DescField, 1, 3);
+        grid.add(descLabel, 0, 5);
+        grid.add(DescField, 1, 5);
 
         Label ansLabel = new Label("Answer:");
         ansLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
@@ -63,11 +73,11 @@ public class addPractice {
 
         AnswerField.setPrefWidth(100);
         TitleField.setPrefWidth(100);
-        IdField.setPrefWidth(100);
+        IdField.setPrefWidth(30);
 
-        grid.add(ansLabel, 0, 5);
-        grid.add(infoLabel, 1, 6);
-        grid.add(AnswerField, 1, 5);
+        grid.add(ansLabel, 0, 6);
+        grid.add(infoLabel, 1, 7);
+        grid.add(AnswerField, 1, 6);
 
         DescField.setPrefWidth(300);
         DescField.setPrefHeight(200);
@@ -86,6 +96,8 @@ public class addPractice {
             String ans = AnswerField.getText();
             String lvl = LevelField.getText();
             System.out.println(id + " " + title + " " + desc + " " + ans + " " + lvl);
+
+            practicePanels.addQuestionToArray(id, lvlValid(lvl), title, desc, ans);
 
         } else {
             System.out.println("User canceled input.");

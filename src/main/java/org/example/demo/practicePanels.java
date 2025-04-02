@@ -1,9 +1,6 @@
 package org.example.demo;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -21,7 +18,10 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.*;
 import java.lang.reflect.Type;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,6 +33,11 @@ class question{
     String answer;
 
     public question(String id, int level, String title, String desc, String answer) {
+        this.id = id;
+        this.level = level;
+        this.title = title;
+        this.desc = desc;
+        this.answer = answer;
     }
 }
 
@@ -133,6 +138,12 @@ public class practicePanels {
                 }
             });
         }
+        public String getId(){return id;}
+        public int getLevel(){return level;}
+        public String getTitle(){return title;}
+        public String getDesc(){return desc;}
+        public String getAnswer(){return answer;}
+
         private void changeButton(){
             if (!this.solved) {
                 tryButton.setText("Solve me!");
@@ -184,22 +195,32 @@ public class practicePanels {
         PracticeQuestion newQuestion = new PracticeQuestion(id, title, desc, answer, level);
         listOfQuestions.add(newQuestion);
     }
-    public static void addQuestionToJson(String id, int Level, String title, String desc, String answer) {
+    public static void addQuestionToJson(PracticeQuestion pq) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String filepath = mainFilePath;
-        try{
-            BufferedReader reader = new BufferedReader(new FileReader(filepath));
-            Type type = new TypeToken<Map<String, List<question>>>() {}.getType();
-            Map<String, List<question>> data = gson.fromJson(reader, type);
-            question newQuestion = new question(
-                 id, Level, title, desc, answer    
-            );
-            data.get("questions").add(newQuestion);
-            FileWriter writer = new FileWriter(filepath);
-            gson.toJson(data, writer);
-            writer.close();
+        JsonObject jsonData;
 
-        }catch (IOException e){
+        try {
+            String json = Files.exists(Paths.get(mainFilePath)) ? Files.readString(Paths.get(mainFilePath)) : "{}";
+            jsonData = JsonParser.parseString(json).getAsJsonObject();
+        } catch (IOException | IllegalStateException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        JsonArray questions = jsonData.has("questions") ? jsonData.getAsJsonArray("questions") : new JsonArray();
+        JsonObject newQuestion = new JsonObject();
+        newQuestion.addProperty("id", pq.getId());
+        newQuestion.addProperty("level", pq.getLevel());
+        newQuestion.addProperty("title", pq.getTitle());
+        newQuestion.addProperty("desc", pq.getTitle());
+        newQuestion.addProperty("answer", pq.getAnswer());
+
+        questions.add(newQuestion);
+        jsonData.add("questions", questions);
+
+        try {
+            Files.write(Paths.get(mainFilePath), gson.toJson(jsonData).getBytes());
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
