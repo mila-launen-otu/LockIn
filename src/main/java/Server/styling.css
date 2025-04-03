@@ -1,0 +1,78 @@
+/* Chat Server Application CSS */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5faff; /* Light pastel base */
+    color: #003c71; /* Future Blue */
+    margin: 0;
+    padding: 0;
+}
+
+.chat-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: rgba(0, 119, 202, 0.1); /* Simcoe Blue pastel */
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.chat-header {
+    background-color: rgba(0, 60, 113, 0.8); /* Future Blue pastel */
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-size: 1.5em;
+    border-radius: 8px 8px 0 0;
+}
+
+.chat-messages {
+    height: 400px;
+    overflow-y: auto;
+    padding: 10px;
+    background: #e7f0ff;
+    border-radius: 5px;
+}
+
+.message {
+    padding: 10px;
+    margin: 5px;
+    border-radius: 10px;
+    max-width: 70%;
+}
+
+.message.user {
+    background-color: rgba(0, 119, 202, 0.2); /* Simcoe Blue */
+    align-self: flex-end;
+}
+
+.message.other {
+    background-color: rgba(231, 93, 42, 0.2); /* Tech Tangerine */
+    align-self: flex-start;
+}
+
+.chat-input {
+    display: flex;
+    margin-top: 10px;
+}
+
+.chat-input input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #003c71;
+    border-radius: 5px;
+}
+
+.chat-input button {
+    background-color: rgba(231, 93, 42, 0.8); /* Tech Tangerine */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.chat-input button:hover {
+    background-color: rgba(231, 93, 42, 1);
+}
