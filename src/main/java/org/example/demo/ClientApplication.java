@@ -15,6 +15,8 @@ import javax.swing.*;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Objects;
+
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -48,8 +50,8 @@ public class ClientApplication extends Application {
         if(username.isEmpty()){
             exit();
         }
-
-        socket = new Socket("26.202.66.197", 5001);
+        System.out.println("CLIENT: Successful username attempt");
+        socket = new Socket("localhost", 5001);
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         out = new PrintWriter(socket.getOutputStream(), true);
 
@@ -77,8 +79,7 @@ public class ClientApplication extends Application {
         chatLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
         textArea = new TextArea();
         textArea.setEditable(false);
-        textArea.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
-        textArea.setStyle("fx-font-weight: bold;-fx-text-fill: #4aa146;");
+
         textArea.setWrapText(true);
 
         ScrollPane scrollPane = new ScrollPane();
@@ -100,7 +101,6 @@ public class ClientApplication extends Application {
 
         // practice question Pane
         GridPane practicePane = new GridPane();
-        practicePane.setStyle("-fx-border-color: lightcoral; -fx-border-width: 2;");
         practicePane.setPrefSize(width/2-20, height/2);
         GridPane.setConstraints(practicePane, 1, 1);
         VBox questList = new VBox();
@@ -122,12 +122,10 @@ public class ClientApplication extends Application {
         PracticeScroll.setFitToHeight(true);
 
         Label PracticeLabel = new Label("Practice Problems");
-        PracticeLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
         Button newQuestion = new Button("Add New Question");
         newQuestion.setPrefSize(width/2-20, 35);
 
         newQuestion.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-        newQuestion.setStyle("fx-font-weight: bold; -fx-background-color: #1c1c1c; -fx-text-fill: #4aa146;");
 
         newQuestion.setOnAction(event ->{
             //TO DO: add Question to Json file
@@ -148,6 +146,7 @@ public class ClientApplication extends Application {
         VBox root = new VBox(tabPane);
         Scene scene = new Scene(root, width, height);
 
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/style.css")).toExternalForm());
         primaryStage.setTitle(username + "'s Workspace");
         primaryStage.setScene(scene);
         primaryStage.show();

@@ -34,6 +34,20 @@
       "title": "Simple percentage problem",
       "desc": "Simple percentage problem",
       "answer": "25%"
+    },
+    {
+      "id": "23b",
+      "level": 1,
+      "title": "discrete math problem ",
+      "desc": "discrete math problem ",
+      "answer": "on"
+    },
+    {
+      "id": "1",
+      "level": 1,
+      "title": "11",
+      "desc": "11",
+      "answer": "1"
     }
   ]
 }
