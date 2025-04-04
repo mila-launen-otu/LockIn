@@ -61,6 +61,8 @@ public class ClientApplication extends Application {
         // Create tabs
         Tab workspaceTab = new Tab("Workspace", gridPane);
         Tab whiteboardTab = new Tab("Whiteboard");
+        workspaceTab.setClosable(false);
+        whiteboardTab.setClosable(false);
 
         tabPane.getTabs().addAll(workspaceTab, whiteboardTab);
 
@@ -77,7 +79,7 @@ public class ClientApplication extends Application {
         chatLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
         textArea = new TextArea();
         textArea.setEditable(false);
-        textArea.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
+        textArea.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
         textArea.setStyle("fx-font-weight: bold;-fx-text-fill: #4aa146;");
         textArea.setWrapText(true);
 
@@ -148,6 +150,8 @@ public class ClientApplication extends Application {
         VBox root = new VBox(tabPane);
         Scene scene = new Scene(root, width, height);
 
+        scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
+
         primaryStage.setTitle(username + "'s Workspace");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -183,7 +187,7 @@ public class ClientApplication extends Application {
                     Platform.runLater(() -> {
                         if (finalMessage.contains("ANS-")) {
                             String msg = finalMessage.substring(4);
-                            textArea.appendText(username + " solved " + msg + "\n");
+                            textArea.appendText( "✽ solved " + msg + "\n");
                         }
                         else if(finalMessage.contains("NEWQ")) {
                             String[] add_new_question = finalMessage.split("_");
@@ -225,9 +229,13 @@ public class ClientApplication extends Application {
         ClientApplication.username = username;
     }
     //String id, int level, String title, String desc, String answer
-    public static void sendQuestion(String id, int level, String title, String desc, String answer){
-        out.println("NEWQ_"+id+"_"+title+"_"+desc+"_"+answer+"_"+level);
-        out.println("New Question: " + title + ", By: " + username);
+    //id, lvlValid(lvl), title, desc, ans
+    public static void sendQuestion(String id, int lvl, String title, String desc, String ans){
+        if(ans.isEmpty()){
+            ans = "---";
+        }
+        out.println("NEWQ_"+id+"_"+lvl+"_"+title+"_"+desc+"_"+ans);
+        out.println("✽ Added a new question: " + title);
     }
 
     public static void main(String[] args) {

@@ -44,7 +44,7 @@ public class LoginSystem {
 
         // Create main layout
         mainGrid = new GridPane();
-        mainGrid.setPrefSize(400, 200);
+        mainGrid.setPrefSize(400, 400);
         mainGrid.setPadding(new Insets(10));
         mainGrid.setHgap(10);
         mainGrid.setVgap(10);
@@ -134,9 +134,13 @@ public class LoginSystem {
 
     private void showNewAccount() {
         GridPane registerGrid = new GridPane();
+        registerGrid.setPrefSize(400,400);
         registerGrid.setPadding(new Insets(10));
         registerGrid.setHgap(10);
         registerGrid.setVgap(10);
+
+        ComboBox<String> RoleComboBox = new ComboBox<>();
+        RoleComboBox.getItems().addAll("Student", "Teacher", "Personal");
 
         Label insertUser = new Label("Create a new Account:");
         insertUser.setFont(Font.font("Tahoma", FontWeight.BOLD, 20));
@@ -158,26 +162,31 @@ public class LoginSystem {
         Button backButton = new Button("Back");
         backButton.setOnAction(e -> dialog.getDialogPane().setContent(mainGrid));
 
+        RoleComboBox.setValue("Personal");
+        Label role = new Label("Select Your Role:");
+        registerGrid.add(role, 0, 5);
+        registerGrid.add(RoleComboBox, 0, 6);
+
         // Submit button
         Button submitButton = new Button("Submit");
         submitButton.setOnAction(e -> {
             if (usernameField.getText().isEmpty() || passwordField.getText().isEmpty()) {
                 System.out.println("Username and Password cannot be empty");
             } else {
-                addAccount(usernameField.getText(), passwordField.getText());
+                addAccount(usernameField.getText(), passwordField.getText(), RoleComboBox.getValue());
                 ClientApplication.setUsername(usernameField.getText());
                 dialog.setResult(ButtonType.OK);  // Close dialog on successful input
             }
         });
 
-        registerGrid.add(backButton, 0, 5);
-        registerGrid.add(submitButton, 1, 5);
+        registerGrid.add(backButton, 0, 7);
+        registerGrid.add(submitButton, 1, 7);
 
         // Update the dialog content dynamically
         dialog.getDialogPane().setContent(registerGrid);
     }
 
-    private static void addAccount(String username, String password) {
+    private static void addAccount(String username, String password, String Role) {
         String filePath = "src/main/java/users.json";
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         JsonObject jsonData;

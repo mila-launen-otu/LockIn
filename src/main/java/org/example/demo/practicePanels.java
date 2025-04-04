@@ -88,9 +88,8 @@ public class practicePanels {
             idLabel.setStyle("-fx-font-weight: bold");
 
             Label titleLabel = new Label(this.title);
-            Label descLabel = new Label(this.desc);
 
-            vBox.getChildren().addAll(idLabel, titleLabel, descLabel);
+            vBox.getChildren().addAll(idLabel, titleLabel);
             vBox.setPrefSize(w - 100 , h-10);
 
             tryButton = new Button();
