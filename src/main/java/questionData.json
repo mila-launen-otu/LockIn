@@ -34,6 +34,40 @@
       "title": "Simple percentage problem",
       "desc": "Simple percentage problem",
       "answer": "25%"
+    },
+    {
+      "id": "32s",
+      "level": 1,
+      "title": "Simple Division Problem",
+      "desc": "Simple Division Problem",
+      "answer": "4"
+    },
+    {
+      "id": "1234",
+      "level": 3,
+      "title": "hello test ",
+      "desc": "hello test ",
+      "answer": "3"
+    },
+    {
+      "id": "7",
+      "level": 1,
+      "title": "7",
+      "desc": "7",
+      "answer": "hello!!"
+    },
+    {
+      "id": "26d",
+      "level": 3,
+      "title": "Simple Adding ",
+      "desc": "Simple Adding "
+    },
+    {
+      "id": "2",
+      "level": 5,
+      "title": "BRAINROT QUIZ TEST ",
+      "desc": "BRAINROT QUIZ TEST ",
+      "answer": "Danielle"
     }
   ]
 }
