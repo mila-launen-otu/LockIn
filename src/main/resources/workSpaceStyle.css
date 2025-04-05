@@ -90,7 +90,7 @@
 .custom-button {
     -fx-background-color: #4CAF50; /* Button color */
     -fx-text-fill: white; /* Text color */
-    -fx-font-family: "Arial"; /* Font style */
+    -fx-font-family: "Arial"; /* Font style sybau */
     -fx-font-size: 12px; /* Font size */
     -fx-border-radius: 5px; /* Rounded corners (optional) */
     -fx-background-radius: 5px; /* Rounded corners (optional) */
