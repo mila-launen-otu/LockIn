@@ -11,7 +11,7 @@ import javafx.scene.text.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.scene.control.TextField;
-import javax.swing.*;
+
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -90,7 +90,8 @@ public class ClientApplication extends Application {
         textField.setPrefSize(width/2-20-70, 15);
 
         Button sendBtn = new Button("Send");
-        sendBtn.setPrefSize(70, 15);
+        sendBtn.getStyleClass().add("custom-button");
+        sendBtn.setPrefSize(80, 40);
         HBox hbox = new HBox(10);
         hbox.getChildren().add(textField);
         hbox.getChildren().add(sendBtn);// No issue
@@ -146,7 +147,7 @@ public class ClientApplication extends Application {
         VBox root = new VBox(tabPane);
         Scene scene = new Scene(root, width, height);
 
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/style.css")).toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/workSpaceStyle.css")).toExternalForm());
         primaryStage.setTitle(username + "'s Workspace");
         primaryStage.setScene(scene);
         primaryStage.show();

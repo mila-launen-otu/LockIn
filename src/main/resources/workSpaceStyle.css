@@ -30,7 +30,7 @@
     -fx-background-radius: 5px;
 }
 .button:hover {
-    -fx-background-color: #1e88e5;
+    -fx-background-color: #1565C0FF;
 }
 .button:pressed {
     -fx-background-color: #1565c0;
@@ -85,4 +85,13 @@
 /* Practice Problems Panel */
 .practice-pane {
     -fx-border-color: #1976d2;
+}
+
+.custom-button {
+    -fx-background-color: #4CAF50; /* Button color */
+    -fx-text-fill: white; /* Text color */
+    -fx-font-family: "Arial"; /* Font style */
+    -fx-font-size: 12px; /* Font size */
+    -fx-border-radius: 5px; /* Rounded corners (optional) */
+    -fx-background-radius: 5px; /* Rounded corners (optional) */
 }
