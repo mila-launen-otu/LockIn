@@ -181,7 +181,11 @@ public class LoginSystem {
         submitButton.setOnAction(e -> {
             if (usernameField.getText().isEmpty() || passwordField.getText().isEmpty()) {
                 System.out.println("Username and Password cannot be empty");
-            } else {
+            } else if(IsUsernameInUse(usernameField.getText())){
+                JOptionPane.showMessageDialog(null, "Username is already in use", "Attention!", JOptionPane.INFORMATION_MESSAGE);
+                usernameField.setText("");
+            }
+            else {
                 addAccount(usernameField.getText(), passwordField.getText(), RoleComboBox.getValue());
                 ClientApplication.setUsername(usernameField.getText());
                 dialog.setResult(ButtonType.OK);  // Close dialog on successful input
@@ -246,4 +250,30 @@ public class LoginSystem {
         }
         return new User("", "");
     }
+
+    private boolean IsUsernameInUse(String username) {
+        String filePath = "src/main/java/users.json";
+        Gson gson = new Gson();
+
+        try {
+            FileReader reader = new FileReader(filePath);
+            JsonObject jsonObject = gson.fromJson(reader, JsonObject.class);
+            reader.close();
+
+            JsonArray usersArray = jsonObject.getAsJsonArray("users");  // Fixed key from "questions" to "users"
+
+            for (JsonElement userElement : usersArray) {
+                JsonObject user = userElement.getAsJsonObject();
+                if (user.get("username").getAsString().equals(username)) {
+                    return true;
+                }
+            }
+            return false;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
 }

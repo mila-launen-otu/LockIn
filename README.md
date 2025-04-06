@@ -1,23 +1,67 @@
-# LOCKin Progress
-## Mila's Log and Activity
-### Adding Practice Questions
-- Completed add Practice question, which will now add the practice question to each user's list, using the ```ChatServer``` and ```ClientApplication``` to send messages. 
-- Also, every time another user does something (answer/add a question), it will automatically be displayed as a message on the chat
-- **UI:** updated the UI when you insert a question, uses the dialog format
-### Login System
-- The login system looks way better now, you can add a new user or login. 
-- The login will search your name in a json file called ```users.json``` 
-- **NEED TO DO**: Make it so that when someone creates a new account, this user automatically gets updated to everyone's json file, so other users could access that name. (IDK is this mandatory??? LMk what you guys think)
+# Final Assignment - LockIn
+CSCI 2020U: System Development and Integration
 
-### Possible Tasks
-#### UI
-- clean up the UI it lowk looks a little murked; add some personality 
-- add the LOCKin Logo!! 
+<br>
 
-#### Features 
-- add a pomodoro timer (maybe)
-- maybe when pomodoro timer is started, informs other users
-- lowk adding sound effects would be cool!!
-- add a to-do list (where the whiteboard was supposed to go)
+<picture>
+  <source srcset="LockInwhite.png" media="(prefers-color-scheme: dark)">
+  <img src="LockInblack.png" alt="LockIn logo" width="400">
+</picture>
 
-and that's I think it. Use this Read me to also try updating your progress
+<br>
+
+## Project Information
+
+### Team Members
+Mila Launen <br>
+Klein Cafa <br>
+Mehrin Hossain <br>
+Tomasz Puzio
+
+### Description
+LockIn is a student-focused desktop application designed to make studying more manageable and collaborative. Built with a clean, modern user interface, LockIn allows users to create an account, log in, and connect with others through a real-time chat system powered by a central chat server. Once inside, users can message one another, work through practice questions, stay productive using an integrated Pomodoro timer, as well as many other such features. Whether studying solo or with peers, LockIn creates a supportive virtual environment to help students stay focused and engaged.
+
+## ScreenShots
+
+<figure style="text-align: center;">
+  <img src="filename"/>
+  <figcaption><em>Image 1: Screenshot of the application running</em></figcaption>
+</figure>
+
+## Features
+- Account Creation/Login UI
+- Practice Questions
+- Collaborative Whiteboard
+- Pomodoro Timer
+
+## How to Run
+1. Clone the repository by selecting the green **code** button in GitHub, and copying the repository link.
+
+3. Open a terminal and clone this repository to your local machine using the command:<br>
+   ```bash
+   git clone <repository-url>
+
+4. Navigate to the project folder and open it in your preferred IDE that supports Java version 23.
+
+5. Run `ChatServer.java`
+
+6. Run `WhiteboardServer.java`
+
+7. Run `ClientApplication.java`
+
+8. Create a new account, or log in to an existing account.
+
+9. It's time to LockIn! <br>
+    *Connect with friends, and use tools like the chat box, collaborative whiteboard, or group question pane!*
+
+Click [HERE](http://example.com) for a full demo.
+
+## Other Resources
+* https://www.w3schools.com/
+* https://docs.oracle.com/en/java/
+* ChatGPT
+* `java.awt`
+* `java.io`
+* `javafx`
+* `java.net.Socket`
+* `java.net.ServerSocket`
