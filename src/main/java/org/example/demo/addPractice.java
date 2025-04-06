@@ -1,5 +1,5 @@
 package org.example.demo;
-
+//libraries to import
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.application.Application;
@@ -12,11 +12,11 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Optional;
 
-
 public class addPractice {
-    public static void  enterPracticeQ() {
+    addPractice(){
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle("Practice Question Details");
         dialog.setHeaderText("Please enter your Question:");
@@ -37,39 +37,38 @@ public class addPractice {
 
         // Add components to the grid
         Label Insert = new Label("Your Question");
-        Insert.setFont(Font.font("Tahoma", FontWeight.BOLD, 20));
-        Insert.setStyle("-fx-background-color: #4aa146; -fx-highlight-text-fill: white ");
+        Insert.getStyleClass().add("answerTitle-label");
         grid.add(Insert, 0, 0);
 
+        //attributes-label
         Label idLabel = new Label("ID:");
-        idLabel.setFont(Font.font("Tahoma", 15));
+        idLabel.getStyleClass().add("attributes-label");
+
         grid.add(idLabel, 0, 1);
         grid.add(IdField, 1, 1);
 
         Label TitleLabel = new Label("Title:");
-        TitleLabel.setFont(Font.font("Tahoma", 15));
+        TitleLabel.getStyleClass().add("attributes-label");
         grid.add(TitleLabel, 0, 2);
         grid.add(TitleField, 1, 2);
 
         Label lvlLabel = new Label("Level (1-5):");
+        lvlLabel.getStyleClass().add("attributes-label");
         Label infoLvl = new Label("invalid levels will be labeled at 1");
-        lvlLabel.setFont(Font.font("Tahoma", 15));
-        infoLvl.setFont(Font.font("Tahoma", 12));
 
         grid.add(lvlLabel, 0, 3);
         grid.add(LevelField, 1, 3);
         grid.add(infoLvl, 1, 4);
 
         Label descLabel = new Label("Description:");
-        descLabel.setFont(Font.font("Tahoma", 15));
+        descLabel.getStyleClass().add("attributes-label");
         grid.add(descLabel, 0, 5);
         grid.add(DescArea, 1, 5);
 
         Label ansLabel = new Label("Answer:");
-        ansLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
+        ansLabel.getStyleClass().add("attributes-label");
 
         Label infoLabel = new Label("(if unsolved, leave blank)");
-        infoLabel.setFont(Font.font("Verdana", 12));
 
         AnswerField.setPrefWidth(100);
         TitleField.setPrefWidth(100);
@@ -83,6 +82,7 @@ public class addPractice {
         DescArea.setPrefHeight(200);
         DescArea.setWrapText(true);
         // Add the grid to the dialog
+        dialog.getDialogPane().getStylesheets().add(Objects.requireNonNull(getClass().getResource("/AnswerFormStyle.css")).toExternalForm());
         dialog.getDialogPane().setContent(grid);
 
         // Add OK and Cancel buttons
@@ -103,6 +103,9 @@ public class addPractice {
         } else {
             System.out.println("User canceled input.");
         }
+    }
+    public static void  enterPracticeQ() {
+        addPractice p1 = new addPractice();
     }
     private static int lvlValid(String id){
         try{

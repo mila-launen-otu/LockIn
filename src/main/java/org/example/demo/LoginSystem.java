@@ -1,19 +1,27 @@
 package org.example.demo;
-
+//libraries to import
 import com.google.gson.*;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 import javax.swing.*;
+import javax.swing.text.Element;
+import javax.swing.text.html.ImageView;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Optional;
+
+import javafx.scene.image.Image;
 
 import static javafx.application.Platform.exit;
 
@@ -83,10 +91,11 @@ public class LoginSystem {
         loginGrid.setPadding(new Insets(10));
         loginGrid.setHgap(10);
         loginGrid.setVgap(10);
+        
 
         Label insertUser = new Label("Welcome Back!");
         insertUser.setFont(Font.font("Tahoma", FontWeight.BOLD, 20));
-        loginGrid.add(insertUser, 0, 0);
+
 
         Label details = new Label("Enter your details:");
         details.setFont(Font.font("Tahoma", 12));

@@ -7,6 +7,7 @@ import java.util.concurrent.*;
 
 public class WhiteboardServer {
     private static final int PORT = 5000;
+    private static final String SERVER_IP = "0.0.0.0";
     private final List<ClientHandler> clients = new CopyOnWriteArrayList<>();
     private File csvFile;
 
@@ -31,8 +32,8 @@ public class WhiteboardServer {
     public void start() {
 
         // Start server
-        try (ServerSocket serverSocket = new ServerSocket(PORT)) {
-            System.out.println("Whiteboard Server started on port " + PORT);
+        try (ServerSocket serverSocket = new ServerSocket(PORT, 50, InetAddress.getByName(SERVER_IP))) {
+            System.out.println("Whiteboard Server started on " + SERVER_IP + ":" + PORT);
 
             while (true) {
                 Socket clientSocket = serverSocket.accept();
@@ -88,6 +89,25 @@ public class WhiteboardServer {
         System.out.println("Client disconnected");
     }
 
+    public void clearCanvas(ClientHandler sender) {
+        // Reset the CSV file with just the header
+        try {
+            FileWriter fw = new FileWriter(csvFile);
+            fw.write("x,y,dragType\n");
+            fw.close();
+            System.out.println("Canvas cleared.");
+        } catch (IOException e) {
+            System.err.println("Error clearing CSV file: " + e.getMessage());
+        }
+
+        // Notify all clients to clear their canvases
+        for (ClientHandler client : clients) {
+            if (client != sender) {
+                client.sendCoordinates("CLEAR");
+            }
+        }
+    }
+
     // Inner class to handle client connections
     private static class ClientHandler implements Runnable {
         private final Socket clientSocket;
@@ -112,8 +132,12 @@ public class WhiteboardServer {
             try {
                 String inputLine;
                 while ((inputLine = in.readLine()) != null) {
-                    // Process received coordinates and broadcast
-                    server.broadcastUpdate(inputLine, this);
+                    if("CLEAR".equals(inputLine)){
+                        server.clearCanvas(this);
+                    }else{
+                        // Process received coordinates and broadcast
+                        server.broadcastUpdate(inputLine, this);
+                    }
                 }
             } catch (IOException e) {
                 System.err.println("Error handling client: " + e.getMessage());

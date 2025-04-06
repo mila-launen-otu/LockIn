@@ -1,0 +1,97 @@
+/* General styling */
+.root {
+    -fx-background-color: #e3f2fd;
+    -fx-font-family: "Verdana";
+}
+
+/* Tabs */
+.tab-pane {
+    -fx-tab-min-width: 100px;
+    -fx-tab-max-width: 200px;
+}
+.tab {
+    -fx-background-color: #64b5f6;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+.tab:selected {
+    -fx-background-color: #1e88e5;
+    -fx-text-fill: white;
+}
+
+/* Buttons */
+.button {
+    -fx-background-color: #42a5f5;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 5px 15px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+.button:hover {
+    -fx-background-color: #1565C0FF;
+}
+.button:pressed {
+    -fx-background-color: #1565c0;
+}
+
+/* Labels */
+.label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0d47a1;
+}
+
+/* Text Fields */
+.text-field {
+    -fx-border-color: #1e88e5;
+    -fx-border-width: 2px;
+    -fx-background-color: white;
+    -fx-text-fill: #0d47a1;
+    -fx-padding: 5px;
+    -fx-border-radius: 5px;
+}
+
+/* Text Area */
+.text-area {
+    -fx-border-color: #1e88e5;
+    -fx-border-width: 2px;
+    -fx-background-color: white;
+    -fx-text-fill: #0d47a1;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+}
+
+/* ScrollPane */
+.scroll-pane {
+    -fx-border-color: #64b5f6;
+    -fx-border-width: 2px;
+    -fx-background-color: #e3f2fd;
+}
+
+/*//libraries to import Chat and Practice Panel Borders */
+.grid-pane {
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+}
+
+/* Chat Panel */
+.chat-pane {
+    -fx-border-color: #4fc3f7;
+}
+
+/* Practice Problems Panel */
+.practice-pane {
+    -fx-border-color: #1976d2;
+}
+
+.custom-button {
+    -fx-background-color: #4CAF50; /* Button color */
+    -fx-text-fill: white; /* Text color */
+    -fx-font-family: "Arial"; /* Font style sybau */
+    -fx-font-size: 12px; /* Font size */
+    -fx-border-radius: 5px; /* Rounded corners (optional) */
+    -fx-background-radius: 5px; /* Rounded corners (optional) */
+}

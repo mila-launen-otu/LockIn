@@ -7,11 +7,13 @@ import java.util.*;
 public class ChatServer {
     private static final Set<ClientHandler> clientHandlers = new HashSet<>();
     private static final Map<String, ClientHandler> clients = new HashMap<>();
+    private static final int PORT = 5001;
+    private static final String SERVER_IP = "0.0.0.0"; // Listen on all interfaces
 
     public static void main(String[] args) throws IOException {
-        final int PORT = 5001;
-        System.out.println("Chat server started at port " + PORT);
-        ServerSocket serverSocket = new ServerSocket(PORT);
+
+        System.out.println("Chat server started at " + SERVER_IP + ": " + PORT);
+        ServerSocket serverSocket = new ServerSocket(PORT, 50, InetAddress.getByName(SERVER_IP));
 
         while (true) {
             new ClientHandler(serverSocket.accept()).start();
