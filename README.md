@@ -1,17 +1,21 @@
 # Final Assignment - LockIn
 CSCI 2020U: System Development and Integration
 
+<br>
+
 <picture>
-  <source srcset="LockIn[WHITE].png" media="(prefers-color-scheme: dark)">
-  <img src="LockIn[BLACK].png" alt="LockIn logo">
+  <source srcset="LockInwhite.png" media="(prefers-color-scheme: dark)">
+  <img src="LockInblack.png" alt="LockIn logo" width="400">
 </picture>
+
+<br>
 
 ## Project Information
 
 ### Team Members
 Mila Launen <br>
 Klein Cafa <br>
-Mehrin Hossain <be>
+Mehrin Hossain <br>
 Tomasz Puzio
 
 ### Description
