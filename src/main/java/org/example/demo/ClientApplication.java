@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -63,6 +64,12 @@ public class ClientApplication extends Application {
         // Create tabs
         Tab workspaceTab = new Tab("Workspace", gridPane);
         Tab whiteboardTab = new Tab("Whiteboard");
+
+        // Create pomodoro timer
+        PomodoroTimer pomodoroTimer = new PomodoroTimer();
+
+        workspaceTab.setClosable(false);
+        whiteboardTab.setClosable(false);
 
         tabPane.getTabs().addAll(workspaceTab, whiteboardTab);
 
@@ -138,9 +145,17 @@ public class ClientApplication extends Application {
         practicePane.add(PracticeScroll,0,2);
         practicePane.add(newQuestion,0,3);
 
-        // Add panes to the gridPane
-        gridPane.add(chatPane, 1, 0);
-        gridPane.add(practicePane, 1, 1);
+        // Add chat, practice and pomodoro timer to the grid pane
+        gridPane.add(chatPane, 0, 1);
+        gridPane.add(practicePane, 0, 2);
+        gridPane.add(pomodoroTimer, 1, 1, 1, 2);
+
+        // Set the grid pane to fill the available space
+        ColumnConstraints col1 = new ColumnConstraints();
+        col1.setPercentWidth(50);
+        ColumnConstraints col2 = new ColumnConstraints();
+        col2.setPercentWidth(50);
+        gridPane.getColumnConstraints().addAll(col1, col2);
 
         workspaceTab.setContent(gridPane);
 
@@ -194,10 +209,38 @@ public class ClientApplication extends Application {
 
                             practicePanels.PracticeQuestion pq = practicePanels.listOfQuestions.getLast();
                             questList.getChildren().add(pq.UI);
+                            // Handle incoming messages related to Pomodoro timer synchronization
+                        } else if (finalMessage.startsWith("POMO-SETSTATE")) {
+                            // Expected format: POMO-SETSTATE:<MODE>:<SECONDS>:<FOCUS_COUNT>:<BREAK_COUNT>
+                            String[] parts = finalMessage.split(":"); // Split by colon
+                            if (parts.length == 5) { // If we have the right number of parts
+                                // Extract the session mode: "FOCUS" or "BREAK"
+                                String mode = parts[1];
 
+                                // Extract the timer value in seconds
+                                int seconds = Integer.parseInt(parts[2]);
 
-                        }
-                        else {
+                                // Extract the current focus session count
+                                int focusCount = Integer.parseInt(parts[3]);
+
+                                // Extract the current break session count
+                                int breakCount = Integer.parseInt(parts[4]);
+
+                                // Update the local PomodoroTimer instance with the new session state
+                                // This ensures all users sync to the same session, time, and counts
+                                Platform.runLater(() -> pomodoroTimer.setState(mode, seconds, focusCount, breakCount));
+                            }
+                            // Remote command to start the Pomodoro timer
+                        } else if (finalMessage.contains("POMO-START")) {
+                            pomodoroTimer.externalStart(false);
+                            // Remote command to pause the Pomodoro timer
+                        } else if (finalMessage.contains("POMO-PAUSE")) {
+                            pomodoroTimer.externalPause(false);
+                            // Remote command to end/reset the Pomodoro timer
+                        } else if (finalMessage.contains("POMO-END")) {
+                            pomodoroTimer.externalEnd(false);
+                            // Remote command to skip the current Pomodoro session
+                        } else if (!finalMessage.contains("POMO-")) {
                             textArea.appendText(finalMessage + "\n");
                         }
                     });
@@ -228,6 +271,13 @@ public class ClientApplication extends Application {
     public static void sendQuestion(String id, int level, String title, String desc, String answer){
         out.println("NEWQ_"+id+"_"+title+"_"+desc+"_"+answer+"_"+level);
         out.println("New Question: " + title + ", By: " + username);
+    }
+
+    // Send commands to the Pomodoro timer
+    public static void sendPomodoroCommand(String command) {
+        if (out != null) { // Ensure out is initialized
+            out.println(command); // Send the command to the server
+        }
     }
 
     public static void main(String[] args) {
