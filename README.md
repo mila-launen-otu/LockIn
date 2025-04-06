@@ -8,6 +8,10 @@ CSCI 2020U: System Development and Integration
   <img src="../src/LockInblack.png" alt="LockIn logo" width="400">
 </picture>
 
+![Light mode logo](src/LockInblack.png#gh-light-mode-only)
+![Dark mode logo](LockInwhite.png#gh-dark-mode-only)
+
+
 <br>
 
 ## Project Information
