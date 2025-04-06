@@ -5,7 +5,7 @@ CSCI 2020U: System Development and Integration
 
 <picture>
   <source srcset="LockInwhite.png" media="(prefers-color-scheme: dark)">
-  <img src="LockInblack.png" alt="LockIn logo" width="400">
+  <img src="../src/LockInblack.png" alt="LockIn logo" width="400">
 </picture>
 
 <br>
