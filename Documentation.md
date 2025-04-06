@@ -9,7 +9,11 @@ LockIn is a student-focused desktop application designed to make studying more m
 - Pomodoro Timer
 
 ### How to Run (Server and Client instructions)
-
+1. Run Whiteboard.java file
+2. Run ChatServer.java file
+3. Run ClientApplication.java file
+4. Connect the local host machine to the ports given by the whiteboard and chat server applications. These can be found within their respective terminals.
+   
 ### Sample Screenshots
 
 ### Known Bugs/Limitations
