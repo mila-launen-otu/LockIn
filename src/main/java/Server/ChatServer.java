@@ -38,7 +38,7 @@ public class ChatServer {
 
                 // Prompt client for username
                 username = in.readLine();
-               //TODO: add to clients
+                //TODO: add to clients
                 synchronized (clients) {
                     clients.put(username, this);
                 }
@@ -78,16 +78,16 @@ public class ChatServer {
                     else{
                         System.out.println(username + ": " + message);
                     }
-                   // TODO: broadcast message
+                    // TODO: broadcast message
                     synchronized (clientHandlers) {
                         for (ClientHandler handler : clientHandlers) {
-                            if(message.contains("ANS-")){
+                            if (message.startsWith("POMO-")) { // Pomodoro Sync
                                 handler.out.println(message);
-                            }
-                            if(message.contains("NEWQ")){
+                            } else if (message.contains("ANS-")) {
                                 handler.out.println(message);
-                            }
-                            else{
+                            } else if (message.contains("NEWQ")) {
+                                handler.out.println(message);
+                            } else {
                                 handler.out.println(username + ": " + message);
                             }
                         }
