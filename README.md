@@ -3,14 +3,8 @@ CSCI 2020U: System Development and Integration
 
 <br>
 
-<picture>
-  <source srcset="LockInwhite.png" media="(prefers-color-scheme: dark)">
-  <img src="../src/LockInblack.png" alt="LockIn logo" width="400">
-</picture>
-
-![Light mode logo](src/LockInblack.png#gh-light-mode-only)
-![Dark mode logo](LockInwhite.png#gh-dark-mode-only)
-
+<img src="src/LockInblack.png#gh-light-mode-only" alt="Light mode logo" width="500">
+<img src="LockInwhite.png#gh-dark-mode-only" alt="Dark mode logo" width="500">
 
 <br>
 
