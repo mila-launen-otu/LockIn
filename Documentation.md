@@ -5,7 +5,7 @@ LockIn is a student-focused desktop application designed to make studying more m
 ### Implemented Features
 - Account Creation/Login UI
 - Practice Questions
-- Whiteboard
+- Virtual Whiteboard
 - Pomodoro Timer
 
 ### How to Run (Server and Client instructions)
