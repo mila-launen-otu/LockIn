@@ -1,5 +1,5 @@
 package org.example.demo;
-
+//libraries to import
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.application.Application;
@@ -14,7 +14,6 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
-
 
 public class addPractice {
     addPractice(){

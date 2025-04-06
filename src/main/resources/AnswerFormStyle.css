@@ -1,5 +1,5 @@
 .dialog-pane {
-    -fx-background-color: #f0f0f0; /* Background color of the dialog */
+    -fx-background-color: #f0f0f0; /*//libraries to import  Background color of the dialog */
     -fx-border-color: #cccccc; /* Border color */
     -fx-border-width: 2px; /* Border width */
     -fx-font-family: "Arial"; /* Font style */
