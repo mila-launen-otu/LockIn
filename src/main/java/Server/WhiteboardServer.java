@@ -6,7 +6,7 @@ import java.util.*;
 import java.util.concurrent.*;
 
 public class WhiteboardServer {
-    private static final int PORT = 5000;
+    private static final int PORT = 5002;
     private static final String SERVER_IP = "0.0.0.0";
     private final List<ClientHandler> clients = new CopyOnWriteArrayList<>();
     private File csvFile;
@@ -21,7 +21,7 @@ public class WhiteboardServer {
                 csvFile.createNewFile();
                 // Initialize with header
                 FileWriter fw = new FileWriter(csvFile);
-                fw.write("x,y,dragType\n");
+                fw.write("x,y,type,color,lineWidth\n");
                 fw.close();
             } catch (IOException e) {
                 System.err.println("Error creating CSV file: " + e.getMessage());
@@ -64,9 +64,7 @@ public class WhiteboardServer {
 
         // Send to all other clients
         for (ClientHandler client : clients) {
-            if (client != sender) {
-                client.sendCoordinates(coordinates);
-            }
+            client.sendCoordinates(coordinates);
         }
     }
 
@@ -93,7 +91,7 @@ public class WhiteboardServer {
         // Reset the CSV file with just the header
         try {
             FileWriter fw = new FileWriter(csvFile);
-            fw.write("x,y,dragType\n");
+            fw.write("x,y,type,color,lineWidth\n");
             fw.close();
             System.out.println("Canvas cleared.");
         } catch (IOException e) {
