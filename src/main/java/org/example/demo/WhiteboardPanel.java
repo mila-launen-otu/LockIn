@@ -16,8 +16,8 @@ import java.io.*;
 import java.net.*;
 
 public class WhiteboardPanel {
-    private static final String SERVER_ADDRESS = "26.202.66.197"; // e.g., "192.168.1.100"
-    private static final int SERVER_PORT = 5000;
+    private static final String SERVER_ADDRESS = "0.0.0.0";
+    private static final int SERVER_PORT = 5002;
 
     private Canvas canvas;
     private GraphicsContext gc;
