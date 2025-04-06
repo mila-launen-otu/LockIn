@@ -1,14 +1,11 @@
 # Final Assignment - LockIn
-CSCI 2020U: System Development and Integration
 
-<br>
-
-<img src="src/LockInblack.png#gh-light-mode-only" alt="Light mode logo" width="500">
-<img src="LockInwhite.png#gh-dark-mode-only" alt="Dark mode logo" width="500">
-
-<br>
+<img src="src/LockInblack.png#gh-light-mode-only" alt="Light mode logo" width="450">
+<img src="LockInwhite.png#gh-dark-mode-only" alt="Dark mode logo" width="450">
 
 ## Project Information
+
+*CSCI 2020U: System Development and Integration*
 
 ### Team Members
 Mila Launen <br>
